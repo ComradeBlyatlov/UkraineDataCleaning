@@ -5,6 +5,7 @@ df = pd.read_csv ('refugees1.csv', index_col=False)
 
 df['date'] = pd.to_datetime(df['date'])
 
+#Sorting data to weekly format
 countries = []
 weekno = 0
 
@@ -21,6 +22,7 @@ for x in range(len(df['date'])):
     if week != weekno:
         countries = []
         weekno = week
+        
     if (df['country'][x] not in countries):
         countries.append(df['country'][x])
         weekno = week
@@ -34,6 +36,7 @@ df['date'] = pd.to_datetime(df['date']) - pd.to_timedelta(7, unit='d')
 
 df.reset_index(drop=True, inplace=True)
 
+#Adding population to countries
 array = []
 for x,y in enumerate(df['country']):
     if df['country'][x] == 'Belarus':
